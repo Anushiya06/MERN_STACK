@@ -1,19 +1,37 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Resizing with Opacity</title>
+    <title>Image Resizing with Buttons</title>
     <style>
         img {
             width: 200px;
             height: auto;
-            opacity: 0.5;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Resizing an Image with Opacity</h1>
-    <img src="your-image-url.jpg" alt="Sample Image">
+    <h1>Resizing an Image using button </h1>
+    <img id="resizableImage" src="https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?cs=srgb&dl=daylight-forest-glossy-443446.jpg&fm=jpg" alt="Sample Image" alt="Sample Image">
+    <br>
+    <button onclick="resizeImage(20)">+</button>
+    <button onclick="resizeImage(-20)">-</button>
+
+    <script>
+        function resizeImage(change) {
+            const img = document.getElementById('resizableImage');
+            const currentWidth = img.clientWidth;
+            img.style.width = (currentWidth + change) + 'px';
+        }
+    </script>
 </body>
 </html>
+

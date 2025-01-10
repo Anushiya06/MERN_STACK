@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize Image with Opacity</title>
+    <style>
+        #resizedImage {
+            width: 800px; 
+            height: 600px; 
+            opacity: 0.5; 
+        }
+    </style>
+</head>
+<body>
+    <img id="resizedImage" src="https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?cs=srgb&dl=daylight-forest-glossy-443446.jpg&fm=jpg" alt="Sample Image">
+    <br>
+    <script>
+        const image = document.getElementById('resizedImage');
+        image.style.width = '800px';
+        image.style.height = '600px'; 
+        image.style.opacity = '0.5'; 
+    </script>
+</body>
+</html>

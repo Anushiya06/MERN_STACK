@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize Image in All Directions</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .resizable {
+            position: relative;
+            display: inline-block;
+        }
+
+        #resizableImage {
+            width: 200px;
+            height: auto;
+        }
+
+        .resizer {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #000;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .resizer.top-left {
+            top: -5px;
+            left: -5px;
+            cursor: nwse-resize;
+        }
+
+        .resizer.top-right {
+            top: -5px;
+            right: -5px;
+            cursor: nesw-resize;
+        }
+
+        .resizer.bottom-left {
+            bottom: -5px;
+            left: -5px;
+            cursor: nesw-resize;
+        }
+
+        .resizer.bottom-right {
+            bottom: -5px;
+            right: -5px;
+            cursor: nwse-resize;
+        }
+    </style>
+</head>
+<body>
+    <div class="resizable">
+        <img id="resizableImage" src="https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?cs=srgb&dl=daylight-forest-glossy-443446.jpg&fm=jpg" alt="Sample Image" alt="Sample Image">
+        <div class="resizer top-left"></div>
+        <div class="resizer top-right"></div>
+        <div class="resizer bottom-left"></div>
+        <div class="resizer bottom-right"></div>
+    </div>
+
+    <script>
+        const resizable = document.querySelector(".resizable");
+        const image = document.getElementById("resizableImage");
+        const resizers = document.querySelectorAll(".resizer");
+
+        let isResizing = false;
+        let currentResizer;
+
+        resizers.forEach(resizer => {
+            resizer.addEventListener("mousedown", (event) => {
+                isResizing = true;
+                currentResizer = resizer;
+                event.preventDefault();
+            });
+        });
+
+        document.addEventListener("mousemove", (event) => {
+            if (isResizing) {
+                const rect = resizable.getBoundingClientRect();
+                if (currentResizer.classList.contains("bottom-right")) {
+                    image.style.width = `${event.clientX - rect.left}px`;
+                    image.style.height = `${event.clientY - rect.top}px`;
+                } else if (currentResizer.classList.contains("bottom-left")) {
+                    image.style.width = `${rect.right - event.clientX}px`;
+                    image.style.height = `${event.clientY - rect.top}px`;
+                    resizable.style.left = `${event.clientX}px`;
+                } else if (currentResizer.classList.contains("top-right")) {
+                    image.style.width = `${event.clientX - rect.left}px`;
+                    image.style.height = `${rect.bottom - event.clientY}px`;
+                    resizable.style.top = `${event.clientY}px`;
+                } else if (currentResizer.classList.contains("top-left")) {
+                    image.style.width = `${rect.right - event.clientX}px`;
+                    image.style.height = `${rect.bottom - event.clientY}px`;
+                    resizable.style.top = `${event.clientY}px`;
+                    resizable.style.left = `${event.clientX}px`;
+                }
+            }
+        });
+
+        document.addEventListener("mouseup", () => {
+            isResizing = false;
+        });
+    </script>
+</body>
+</html>
